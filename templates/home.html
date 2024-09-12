@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Presenze</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">Gestione Presenze</h1>
+            <div class="button-container">
+                <a href="/" class="button">Presenze</a>
+                <a href="/register_redirect" class="button">Registrati</a>
+                <a href="/info" class="button">Dettagli</a>
+                <a href="{{ url_for('logout') }}" class="welcome-button">
+                    <span>{{ email }}</span> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sezione per visualizzare i messaggi -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="message-container">
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Registrazione Presenze</h2>
+            <form id="presenzeForm" method="post">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <div>
+                        <label for="data_presenza">Data presenza:</label>
+                        <input type="text" id="data_presenza" name="data_presenza" value="{{ data_presenza }}" readonly>
+                    </div>
+                    <div>
+                        <label for="orario_entrata">Orario corrente:</label>
+                        <input type="text" id="orario_entrata_display" value="" readonly>
+                        <input type="hidden" id="orario_entrata" name="orario_entrata" value="">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <input type="submit" value="Registra entrata" onclick="setFormAction('/aggiungi_entrata', false)">
+                    <input type="submit" value="Registra uscita" onclick="setFormAction('/aggiungi_uscita', true)">
+                </div>
+            </form>
+        </div>
+
+
+        <div class="filter-container">
+            <h2>Filtra Presenze</h2>
+            <form action="/filtra_presenze" method="post">
+				<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+					<div>
+						<label for="data_inizio">Data Inizio:</label>
+						<input type="date" id="data_inizio" name="data_inizio" required>
+					</div>
+					<div>
+						<label for="data_fine">Data Fine:</label>
+						<input type="date" id="data_fine" name="data_fine" required>
+						<br>
+					</div>
+				</div>
+                <input type="submit" value="Filtra">
+            </form>
+        </div>
+		
+        <div class="form-container" style="display: flex; gap: 20px;">
+            <div style="flex: 1; min-width: 0;">
+                <h2>Gestisci Pausa</h2>
+                <form id="pauseForm" action="/toggle_pausa" method="post" style="display: flex; flex-direction: column; gap: 10px;">
+                    <label for="pauseInfo">Totale pausa:</label>
+                    <input type="text" id="pauseInfo" name="pauseInfo" value="{% if presenze and presenze|length > 0 %}{{ presenze[0]['orario_pausa'] }} minuti{% else %}0 minuti{% endif %}" readonly>
+                    <button id="togglePauseButton" type="submit">Inizia Pausa</button>
+                </form>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+                <h2>Calcola Ore Straordinarie</h2>
+                <form action="{{ url_for('calcola_ore_straordinarie') }}" method="post" style="display: flex; flex-direction: column; gap: 10px;">
+                    <label for="oreStraordinarie">Totale ore straordinarie:</label>
+                    <input type="text" id="oreStraordinarie" name="oreStraordinarie" value="{% if presenze and presenze|length > 0 %}{{ presenze[0]['totale_ore_straordinari'] }} ore{% else %}0 ore{% endif %}" readonly>
+                    <input type="hidden" name="data_presenza" value="{{ data_presenza }}">
+                    <input type="submit" value="Calcola Ore Straordinarie">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <h2>Presenze registrate:</h2>
+        <ul>
+            {% for presenza in presenze %}
+                <li>
+                    <strong>{{ presenza['dipendente_nome'] }} {{ presenza['dipendente_cognome'] }}</strong> - {{ presenza['data_presenza'] }}<br>
+                    <strong>Entrata :</strong> {{ presenza['orario1_entrata'] }} -
+                    <strong>Uscita :</strong> {{ presenza['orario1_uscita'] }}<br>
+                    {% if presenza['orario2_entrata'] %}
+                        <strong>Entrata 2:</strong> {{ presenza['orario2_entrata'] }} -
+                    {% endif %}
+                    {% if presenza['orario2_uscita'] %}
+                        <strong>Uscita 2:</strong> {{ presenza['orario2_uscita'] }}<br>
+                    {% endif %}
+					{% if presenza['totale_ore_giorno'] %}
+                        <strong>Totale ore 1° e 2° turno:</strong> {{ presenza['totale_ore_giorno'] }}<br>
+                    {% endif %}
+                    {% if presenza['straordinario_inizio'] %}
+                        <strong>Inizio Straordinario:</strong> {{ presenza['straordinario_inizio'] }} -
+                    {% endif %}
+                    {% if presenza['straordinario_fine'] %}
+                        <strong>Fine Straordinario:</strong> {{ presenza['straordinario_fine'] }}<br>
+                    {% endif %}
+					
+                    <strong>Totale ore straordinarie:</strong> {{ presenza['totale_ore_straordinari'] }} ore<br>
+                    <strong>Totale ore 1° turno:</strong> {{ presenza['totale_ore_mattina'] }}<br>
+                    <strong>Totale pausa:</strong> {{ presenza['orario_pausa'] }} minuti<br>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+	
+    <script>
+        // Funzione per aggiornare l'orario corrente ogni minuto
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+
+            document.getElementById('orario_entrata_display').value = timeString;
+            document.getElementById('orario_entrata').value = timeString;
+        }
+
+        // Aggiorna l'orario ogni minuto
+        setInterval(updateClock, 60000);
+
+        // Imposta l'orario al caricamento della pagina
+        updateClock();
+
+        // Funzione per impostare l'azione del form e i campi nascosti
+        function setFormAction(action, includeOrarioUscita) {
+            const form = document.getElementById('presenzeForm');
+            form.action = action;
+            
+            if (includeOrarioUscita) {
+                // Assicurati che il campo 'orario_uscita' sia presente e valorizzato
+                let orarioUscitaField = document.getElementById('orario_uscita');
+                if (!orarioUscitaField) {
+                    orarioUscitaField = document.createElement('input');
+                    orarioUscitaField.type = 'hidden';
+                    orarioUscitaField.id = 'orario_uscita';
+                    orarioUscitaField.name = 'orario_uscita';
+                    form.appendChild(orarioUscitaField);
+                }
+                orarioUscitaField.value = document.getElementById('orario_entrata').value;
+            } else {
+                // Rimuovi il campo 'orario_uscita' se non è necessario
+                const orarioUscitaField = document.getElementById('orario_uscita');
+                if (orarioUscitaField) {
+                    form.removeChild(orarioUscitaField);
+                }
+            }
+            
+            form.submit(); // Invia il modulo
+        }
+    </script>
+	
+    <div id="pausePopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h2>Pausa in corso</h2>
+            <p>Tempo trascorso: <span id="elapsedTime">00:00:00</span></p>
+            <form id="endPauseForm">
+                <input type="password" id="pausePassword" placeholder="Inserisci la password per terminare la pausa" required>
+                <button type="submit">Termina Pausa</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let pauseInterval;
+
+        function updateElapsedTime() {
+            $.get('/get_pause_time', function(data) {
+                let seconds = Math.floor(data.elapsed_time);
+                let hours = Math.floor(seconds / 3600);
+                seconds %= 3600;
+                let minutes = Math.floor(seconds / 60);
+                seconds %= 60;
+                $('#elapsedTime').text(
+                    String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0')
+                );
+            });
+        }
+
+        $('#togglePauseButton').click(function(e) {
+            e.preventDefault();
+            $.post('/toggle_pausa', function(data) {
+                if (data.status === 'paused') {
+                    $('#pausePopup').show();
+                    pauseInterval = setInterval(updateElapsedTime, 1000);
+                } else if (data.status === 'error') {
+                    alert(data.message);
+                }
+            });
+        });
+
+        $('#endPauseForm').submit(function(e) {
+            e.preventDefault();
+            let password = $('#pausePassword').val();
+            $.post('/toggle_pausa', { password: password }, function(data) {
+                if (data.status === 'resumed') {
+                    clearInterval(pauseInterval);
+                    $('#pausePopup').hide();
+                    location.reload(); // Ricarica la pagina
+                } else if (data.status === 'error') {
+                    alert(data.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Imposta i font di default per il corpo della pagina */
+    line-height: 1.6; /* Imposta l'altezza della linea per migliorare la leggibilità del testo */
+    margin: 0; /* Rimuove il margine esterno del corpo della pagina */
+    padding: 0; /* Rimuove il padding interno del corpo della pagina */
+    background-color: #f2f2f2; /* Imposta il colore di sfondo della pagina */
+    color: #333; /* Imposta il colore del testo */
+    text-align: center; /* Centra il testo all'interno del corpo */
+}
+
+header {
+    background-color: #007bff; /* Imposta il colore di sfondo dell'header */
+    padding: 10px 0; /* Imposta il padding verticale dell'header */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Aggiunge un'ombra per dare profondità */
+    position: sticky; /* Fissa l'header in cima alla pagina quando si scrolla */
+    top: 0; /* Posiziona l'header in cima alla pagina */
+    z-index: 1000; /* Imposta la priorità dello strato per evitare sovrapposizioni */
+}
+
+.header-content {
+    display: flex; /* Usa il layout flexbox per il contenuto dell'header */
+    justify-content: space-between; /* Distribuisce gli elementi con spazio tra di loro */
+    align-items: center; /* Allinea gli elementi al centro verticalmente */
+    max-width: 960px; /* Limita la larghezza massima del contenitore */
+    margin: 0 auto; /* Centra il contenitore orizzontalmente */
+    padding: 0 20px; /* Aggiunge padding orizzontale */
+}
+
+.header-title {
+    color: #fff; /* Colore del testo */
+    font-size: 24px; /* Dimensione del testo */
+    font-weight: bold; /* Spessore del testo */
+    margin: 0; /* Rimuove il margine */
+}
+
+.welcome-button {
+    display: inline-block; /* Visualizza il pulsante come un blocco inline */
+    padding: 10px 20px; /* Aggiunge padding interno */
+    text-decoration: none; /* Rimuove la decorazione del testo */
+    background-color: #007bff; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    border-radius: 5px; /* Arrotonda gli angoli del pulsante */
+    transition: background-color 0.3s ease; /* Aggiunge una transizione per il cambiamento del colore di sfondo */
+}
+
+.welcome-button:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo quando il pulsante è in hover */
+}
+
+.welcome-button span {
+    display: block; /* Visualizza il contenuto come blocco */
+    font-size: 12px; /* Dimensione del testo */
+    margin-bottom: 5px; /* Aggiunge margine inferiore */
+}
+
+.button-container {
+    display: flex; /* Usa il layout flexbox */
+    align-items: center; /* Allinea gli elementi al centro verticalmente */
+    gap: 10px; /* Spazio tra i pulsanti */
+    margin-left: auto; /* Sposta il contenuto verso destra */
+}
+
+.button {
+    display: inline-block; /* Visualizza il pulsante come un blocco inline */
+    padding: 10px 20px; /* Aggiunge padding interno */
+    text-decoration: none; /* Rimuove la decorazione del testo */
+    background-color: #007bff; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    border-radius: 5px; /* Arrotonda gli angoli del pulsante */
+    transition: background-color 0.3s ease; /* Aggiunge una transizione per il cambiamento del colore di sfondo */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo quando il pulsante è in hover */
+}
+
+.container {
+    display: flex; /* Usa il layout flexbox */
+    justify-content: center; /* Centra gli elementi orizzontalmente */
+    align-items: flex-start; /* Allinea gli elementi all'inizio verticalmente */
+    margin: 20px auto; /* Aggiunge margine verticale e centra il contenitore orizzontalmente */
+    max-width: 960px; /* Limita la larghezza massima del contenitore */
+    background-color: #fff; /* Colore di sfondo */
+    border: 1px solid #ddd; /* Aggiunge un bordo */
+    border-radius: 8px; /* Arrotonda gli angoli */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Aggiunge un'ombra per dare profondità */
+    padding: 20px; /* Aggiunge padding interno */
+    flex-wrap: wrap; /* Permette agli elementi di andare a capo se necessario */
+}
+
+.container > div {
+    flex: 1 0 300px; /* Definisce la flessibilità degli elementi */
+    margin: 10px; /* Aggiunge margine esterno */
+    box-sizing: border-box; /* Include il padding e il bordo nella dimensione totale */
+}
+
+.form-container, .filter-container {
+    padding: 20px; /* Aggiunge padding interno */
+    text-align: center; /* Allinea il testo al centro*/
+    transition: transform 0.3s ease; /* Aggiunge una transizione per il cambiamento di trasformazione */
+    background-color: #fff; /* Colore di sfondo */
+    border: 1px solid #ddd; /* Aggiunge un bordo */
+    border-radius: 8px; /* Arrotonda gli angoli */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Aggiunge un'ombra per dare profondità */
+    margin-bottom: 20px; /* Aggiunge margine inferiore */
+    flex: 1 0 calc(50% - 20px); /* Definisce la flessibilità degli elementi */
+}
+
+.orario_entrata_display {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.form-container:hover, .filter-container:hover {
+    transform: translateY(-5px); /* Solleva gli elementi di 5px quando sono in hover */
+}
+
+ul {
+    list-style-type: none; /* Rimuove i punti elenco */
+    padding: 0; /* Rimuove il padding interno */
+    text-align: left; /* Allinea il testo a sinistra */
+    margin-top: 0; /* Rimuove il margine superiore */
+}
+
+li {
+    margin-bottom: 10px; /* Aggiunge margine inferiore */
+    background-color: #fff; /* Colore di sfondo */
+    padding: 15px; /* Aggiunge padding interno */
+    border: 1px solid #ddd; /* Aggiunge un bordo */
+    border-radius: 8px; /* Arrotonda gli angoli */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Aggiunge un'ombra per dare profondità */
+    transition: transform 0.3s ease; /* Aggiunge una transizione per il cambiamento di trasformazione */
+}
+
+li:hover {
+    transform: translateY(-3px); /* Solleva gli elementi di 3px quando sono in hover */
+}
+
+form {
+    background-color: #fff; /* Colore di sfondo */
+    border: 1px solid #ddd; /* Aggiunge un bordo */
+    border-radius: 8px; /* Arrotonda gli angoli */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Aggiunge un'ombra per dare profondità */
+    padding: 20px; /* Aggiunge padding interno */
+    text-align: center; /* Allinea il testo a sinistra */
+    max-width: 600px; /* Limita la larghezza massima del form */
+    margin: 0 auto; /* Centra il form orizzontalmente */
+    margin-bottom: 20px; /* Aggiunge margine inferiore */
+}
+
+.combined-form {
+    display: flex; /* Usa Flexbox per il layout */
+    gap: 20px; /* Spazio tra i due gruppi di form */
+    justify-content: space-between; /* Distribuisce lo spazio tra i gruppi di form */
+}
+
+.form-group {
+    flex: 1; /* Permette ai gruppi di form di espandersi per riempire lo spazio disponibile */
+    display: flex; /* Usa Flexbox per il layout del gruppo di form */
+    flex-direction: column; /* Dispone gli elementi del gruppo di form in colonna */
+    gap: 10px; /* Spazio tra gli elementi all'interno del gruppo di form */
+    padding: 10px; /* Padding interno */
+    background-color: #fff; /* Colore di sfondo */
+    border: 1px solid #ddd; /* Bordo */
+    border-radius: 8px; /* Angoli arrotondati */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra */
+}
+
+
+label {
+    display: block; /* Visualizza l'etichetta come blocco */
+    margin-bottom: 10px; /* Aggiunge margine inferiore */
+    color: #555; /* Colore del testo */
+}
+
+input[type="text"], input[type="date"], select {
+    padding: 10px; /* Aggiunge padding interno */
+    margin-bottom: 10px; /* Aggiunge margine inferiore */
+    width: calc(100% - 20px); /* Imposta la larghezza con un calcolo */
+    box-sizing: border-box; /* Include il padding e il bordo nella dimensione totale */
+    border: 1px solid #ccc; /* Aggiunge un bordo */
+    border-radius: 5px; /* Arrotonda gli angoli */
+    font-size: 16px; /* Dimensione del testo */
+}
+
+input[type="submit"] {
+    background-color: #007bff; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    border: none; /* Rimuove il bordo */
+    padding: 12px 24px; /* Aggiunge padding interno */
+    border-radius: 5px; /* Arrotonda gli angoli */
+    cursor: pointer; /* Cambia il cursore in puntatore */
+    font-size: 16px; /* Dimensione del testo */
+    transition: background-color 0.3s ease; /* Aggiunge una transizione per il cambiamento del colore di sfondo */
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo quando il pulsante è in hover */
+}
+
+.message-container {
+    margin: 20px 0; /* Aggiunge margine verticale */
+}
+
+.message {
+    padding: 10px; /* Aggiunge padding interno */
+    margin-bottom: 10px; /* Aggiunge margine inferiore */
+    border-radius: 5px; /* Arrotonda gli angoli */
+    color: #fff; /* Colore del testo */
+}
+
+.message.success {
+    background-color: #4CAF50; /* Verde per i messaggi di successo */
+}
+
+.message.error {
+    background-color: #f44336; /* Rosso per i messaggi di errore */
+}
+
+/* ... (mantieni il resto del file invariato) */
+
+.popup {
+    position: fixed; /* Posiziona l'elemento in modo fisso nella finestra */
+    top: 0; /* Posiziona l'elemento in cima alla pagina */
+    left: 0; /* Posiziona l'elemento a sinistra della pagina */
+    width: 100%; /* Imposta la larghezza al 100% della pagina */
+    height: 100%; /* Imposta l'altezza al 100% della pagina */
+    background-color: rgba(0, 0, 0, 0.5); /* Colore di sfondo semitrasparente */
+    display: flex; /* Usa il layout flexbox */
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    align-items: center; /* Centra il contenuto verticalmente */
+    z-index: 1000; /* Imposta la priorità dello strato per evitare sovrapposizioni */
+}
+
+.popup-content {
+    background-color: white; /* Colore di sfondo */
+    padding: 20px; /* Aggiunge padding interno */
+    border-radius: 5px; /* Arrotonda gli angoli */
+    text-align: center; /* Centra il testo */
+}
+
+#endPauseForm {
+    margin-top: 20px; /* Aggiunge margine superiore */
+}
+
+#pausePassword {
+    width: 100%; /* Imposta la larghezza al 100% del contenitore */
+    padding: 5px; /* Aggiunge padding interno */
+    margin-bottom: 10px; /* Aggiunge margine inferiore */
+}
+
+#togglePauseButton {
+    background-color: #007bff; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    border: none; /* Rimuove il bordo */
+    padding: 12px 24px; /* Aggiunge padding interno */
+    border-radius: 5px; /* Arrotonda gli angoli */
+    cursor: pointer; /* Cambia il cursore in puntatore */
+    font-size: 16px; /* Dimensione del testo */
+    transition: background-color 0.3s ease; /* Aggiunge una transizione per il cambiamento del colore di sfondo */
+}
+
+#togglePauseButton:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo quando il pulsante è in hover */
+}
+
+#elapsedTime {
+    font-size: 24px; /* Dimensione del testo */
+    font-weight: bold; /* Spessore del testo */
+}
