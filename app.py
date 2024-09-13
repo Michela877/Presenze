@@ -14,10 +14,10 @@ app.secret_key = 'il_tuo_segreto'
 
 # Configurazione del database MySQL
 db_config = {
-    'host': os.getenv('MYSQL_HOST', '192.168.178.162'),
-    'port': os.getenv('MYSQL_PORT', '3308'),
+    'host': os.getenv('MYSQL_HOST', '40.65.111.152'),
+    'port': os.getenv('MYSQL_PORT', '3306'),
     'user': os.getenv('MYSQL_USER', 'root'),
-    'password': os.getenv('MYSQL_PASSWORD', 'my-secret-pw'),
+    'password': os.getenv('MYSQL_PASSWORD', 'SecretPassword'),
     'database': os.getenv('MYSQL_DATABASE', 'asset_management')
 }
 
