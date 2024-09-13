@@ -103,32 +103,32 @@ def log_event(message, level='info'):
 def index():
     if 'loggedin' in session:
         log_event('User is logged in, redirecting to home page.')
-        return redirect('http://192.168.178.162:14000/home?email=' + session['email'])
+        return redirect('http://40.65.111.152:14000/home?email=' + session['email'])
     log_event('User not logged in, rendering login page.')
-    return redirect('http://192.168.178.162:13000/')
+    return redirect('http://40.65.111.152:13000/')
 
 @app.route('/register_redirect')
 def register_redirect():
     if 'loggedin' in session:
         log_event('User is logged in, redirecting to register page.')
-        return redirect('http://192.168.178.162:11000/register?email=' + session['email'])
+        return redirect('http://40.65.111.152:11000/register?email=' + session['email'])
     log_event('User not logged in, rendering login page.')
-    return redirect('http://192.168.178.162:13000/')
+    return redirect('http://40.65.111.152:13000/')
 
 @app.route('/info')
 def info():
     if 'loggedin' in session:
         log_event('User is logged in, redirecting to info page.')
-        return redirect('http://192.168.178.162:18000/info?email=' + session['email'])
+        return redirect('http://40.65.111.152:18000/info?email=' + session['email'])
     log_event('User not logged in, rendering login page.')
-    return redirect('http://192.168.178.162:13000/')
+    return redirect('http://40.65.111.152:13000/')
 
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
     session.pop('email', None)
     log_event('User is logout, rendering login page.')
-    return redirect('http://192.168.178.162:13000/')  # Reindirizza alla pagina di login dell'app di login
+    return redirect('http://40.65.111.152:13000/')  # Reindirizza alla pagina di login dell'app di login
 
     
 @app.route('/calcola_ore_straordinarie', methods=['POST'])
@@ -160,7 +160,7 @@ def calcola_ore_straordinarie():
             conn.close()
 
         return redirect(url_for('home'))
-    return redirect('http://192.168.178.162:13000/')
+    return redirect('http://40.65.111.152:13000/')
 
 
 
@@ -571,7 +571,7 @@ def filtra_presenze():
             cursor.close()
             conn.close()
 
-    return redirect('http://192.168.178.162:13000/')
+    return redirect('http://40.65.111.152:13000/')
 
     
 
